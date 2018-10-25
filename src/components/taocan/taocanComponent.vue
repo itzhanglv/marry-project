@@ -1,113 +1,46 @@
 <template>
 <div class="tc-list">
-    <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
+    <router-link v-for='item in tcList' :key='item.id' class="tc-item" :to="'/taocan/item/'+item.id+'?name='+item.name" >
+      <div class="photo">
+     </div>
+     <div class="details">
+       <h5 class="title">{{item.name}}</h5>
+       <p class="tools">{{item.desc}}</p>
+       <p class="price">{{item.price}}</p>
+     </div>
+    </router-link>
+    <router-link  class="tc-item" to="/taocan/item/1" >
+      <div class="photo">
      </div>
      <div class="details">
        <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
+       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六、道具七</p>
+       <p class="price">￥5000-8000</p>
      </div>
-    </div>
-
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-    
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-    
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-    
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-    
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
-
-    
-     <div class="tc-item">
-     <div class="photo">
-     <!-- <img src="../../images/widding1.jpg"> -->
-     </div>
-     <div class="details">
-       <h5 class="title">套餐一</h5>
-       <p class="tools">道具一、道具二、道具三、道具四、道具五、道具六\道具一、道具二、道具三、道具四、道具五、道具六</p>
-       <p class="price">￥2000-3000</p>
-     </div>
-    </div>
+    </router-link>
 
 </div>
 </template>
 <script>
- export default {}
+ export default {
+   data:function(){
+     return {
+       tcList:[]
+     }
+   },
+   created:function(){
+    //  this.getTcList()
+   },
+   methods:{
+     getTcList:function(){
+       this.$http.get('tc/list').then(result=>{
+         if(result.body.status==0){
+           this.tcList=result.body.data
+         }
+       })
+     }
+   }
+ }
 </script>
 <style lang="scss" scoped>
 .tc-list {
@@ -120,6 +53,7 @@
         margin:10px;
         .photo {
             width: 100px;
+            height: 100px;
             background: url(../../images/widding1.jpg);
             background-size:cover;
         }
